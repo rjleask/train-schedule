@@ -1,0 +1,102 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #212020;
+    background-image: url("http://2.bp.blogspot.com/-kFWWs_l7NX0/U7E5NDaQ-GI/AAAAAAAAAug/QMFoonNY8Bw/s1600/KATIE+CLOVELLY+CORNER+COPPER+_DSC9263+2.JPG");
+}
+
+input {
+    display: block;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: 10px;
+    height: 30px;
+    background-color: #96e8ab;
+    border-radius: 3px;
+    font-weight: 800;
+}
+
+p {
+    margin-left: 5%;
+    color: #96e8ab;
+}
+
+table {
+    margin-left: 5%;
+}
+
+td {
+    padding: 10px 20px;
+}
+
+header {
+    font-weight: 800;
+}
+
+.headings {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.clock {
+    height: 50px;
+    width: 25%;
+    line-height: 50px;
+    padding: 0 10px;
+    background: black;
+    color: #96e8ab;
+    text-align: center;
+    border-radius: 6px;
+    box-shadow: 0 0 7px black;
+    text-shadow: 0 0 3px #fff;
+    font-size: 25px;
+    margin: auto;
+    white-space: nowrap;
+}
+
+.header-box {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 50px;
+    padding: 1%;
+    background-color: #bbb6b3;
+}
+
+.a-stripe {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #96e8ab;
+}
+
+.a-stripe span {
+    margin-left: 5%;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.train-schdule-box {
+    width: 60%;
+    border: 1px solid #96e8ab;
+    margin: 0px auto 5px auto;
+    background-color: #000000;
+    color: #96e8ab;
+    border-radius: 5px;
+}
+
+.add-train-box {
+    width: 60%;
+    border: 1px solid #96e8ab;
+    margin: 0 auto;
+    background-color: #000000;
+    border-radius: 5px;
+}
+
+#submit-button {
+    width: 10%;
+    border-radius: 3px;
+}

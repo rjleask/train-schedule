@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Train Time App</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/train.css">
+</head>
+
+<body>
+    <div class="header-box">
+        <header>Trains</header>
+        <div id="clock" class="clock">loading ...</div>
+    </div>
+    <div class="train-schdule-box">
+        <div class="a-stripe">
+            <span>Current Train Schedule(Updates by min)</span>
+        </div>
+        <table>
+            <tr>
+                <td class="headings">Train Name</td>
+                <td class="headings">Destination</td>
+                <td class="headings">Frequency(min)</td>
+                <td class="headings">Next Arrival</td>
+                <td class="headings">Minutes Away</td>
+            </tr>
+        </table>
+    </div>
+    <div class="add-train-box">
+        <div class="a-stripe">
+            <span>Add Train</span>
+        </div>
+        <form class="add-train">
+            <p>Train Name</p>
+            <input type="text" name="tn" id="a-train-name" placeholder="The Express">
+            <p>Destination</p>
+            <input type="text" name="dest" id="a-destination" placeholder="Russia">
+            <p>First Train Time(HH:mm)</p>
+            <input type="text" name="ft" placeholder="12:30" id="a-first-train">
+            <p>Frequency(min)</p>
+            <input type="text" name="fq" placeholder="60" id="a-frequency">
+            <input type="submit" value="Submit" id="submit-button">
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/4.1.5/firebase.js"></script>
+    <script type="text/javascript" src="assets/js/moment.min.js"></script>
+    <script type="text/javascript" src="assets/js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/train.js"></script>
+</body>
+
+</html>
