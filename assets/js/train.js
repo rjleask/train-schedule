@@ -8,8 +8,7 @@ var config = {
 };
 firebase.initializeApp(config);
 var idCounter = 0;
-var uniqueId = ("minutes-away" + idCounter);
-console.log(uniqueId);
+var uniqueId = "minutes-away" + idCounter;
 var hogwartsTrain = {
     name: 'Hogwarts Express',
     destination: 'Castle',
@@ -19,7 +18,7 @@ var hogwartsTrain = {
     },
     minutesAway: function() {
         return trainMinutesTillCalc(10100, "11:00");
-    },
+    }
 }
 var beanTownTrain = {
     name: 'The Bean Town Steamer',
@@ -38,11 +37,10 @@ var flyingScotsTrain = {
     frequency: 60,
     nextArrival: function() {
         return trainArrivalCalc(60, "9:25");
-
     },
     minutesAway: function() {
         return trainMinutesTillCalc(60, "9:25");
-    },
+    }
 }
 var database = firebase.database();
 var trainNameList = [];
@@ -51,6 +49,10 @@ for (var i = 0; i < trainData.length; i++) {
     idCounter = "minutes-away" + i;
     $("table").append("<tr><td>" + trainData[i].name + "</td><td>" + trainData[i].destination + "</td><td>" + trainData[i].frequency + "</td><td id='next-train'>" + trainData[i].nextArrival() + "</td><td id=" + idCounter + ">" + trainData[i].minutesAway() + "</td></td>");
 }
+database.ref().on("child_added", function(childsnapshot, prevChildKey) {
+    $("table").append("<tr><td>" + childsnapshot.val().name + "</td><td>" + childsnapshot.val().destination + "</td><td>" + childsnapshot.val().frequency + "</td><td>" + childsnapshot.val().firstTrainTime + "</td><td id=" + uniqueId + ">" + childsnapshot.val().minutesAway + "</td></tr>");
+});
+$("input").empty();
 $("body").on("click", "#submit-button", function(e) {
     e.preventDefault();
     var nameVal = $("#a-train-name").val().trim();
@@ -72,36 +74,33 @@ $("body").on("click", "#submit-button", function(e) {
         var timeNow = moment({ hour: splitVal[0], minute: splitVal[1] }).clone();
         timeNow.subtract(1, "year");
         // get the difference in time between now and the date given
-        var diffTime = moment().diff(moment(timeNow), "minutes");
-        // module out the remainder
-        var remainder = diffTime % frequencyVal;
-        var minutesTillTrain = frequencyVal - remainder;
-        var nextTrain = moment().add(minutesTillTrain, "minutes");
+        var nextTrain = trainArrivalCalc(frequencyVal, timeNow);
+        var minutesTillTrain = trainMinutesTillCalc(frequencyVal, timeNow);
         // pushing records to the database 
         database.ref().push({
             name: nameVal,
             destination: destinationVal,
             frequency: frequencyVal,
-            firstTrainTime: nextTrain.format("hh:mm a"),
+            firstTrainTime: nextTrain,
             minutesAway: minutesTillTrain
         });
+
+
         // pulling records from the database and repopulating the page on click, only updates when children are added
-        database.ref().on("child_added", function(childsnapshot, prevChildKey) {
-            $("table").append("<tr><td>" + childsnapshot.val().name + "</td><td>" + childsnapshot.val().destination + "</td><td>" + childsnapshot.val().frequency + "</td><td>" + childsnapshot.val().firstTrainTime + "</td><td id=" + uniqueId + ">" + childsnapshot.val().minutesAway + "</td></tr>");
-        });
-        $("input").empty();
+
     } else {
         alert("you already added a train with that name!");
     }
 });
+
 // my clock and updates the minutesaway every minute
 function update() {
     $('#clock').html(moment().format('D. MMMM YYYY h:mm:ss a'));
-    debugger;
     if (moment().format("ss") == "00") {
         $("#minutes-away0").html(hogwartsTrain.minutesAway());
         $("#minutes-away1").html(beanTownTrain.minutesAway());
         $("#minutes-away2").html(flyingScotsTrain.minutesAway());
+
     }
 }
 setInterval(update, 1000);
@@ -122,4 +121,3 @@ function trainMinutesTillCalc(frequency, startTime) {
     var minutesTillTrain = frequency - remainder;
     return minutesTillTrain;
 }
-console.log(trainData[1].nextArrival(), trainData[1].minutesAway(), trainData[2].minutesAway());
